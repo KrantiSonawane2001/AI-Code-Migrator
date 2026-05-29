@@ -19,7 +19,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:4200",           # local Angular dev
-        "https://your-angular-app.vercel.app"  # production (update later)
+        "https://ai-code-migrator-sigma.vercel.app" # production (update later)
     ],
     allow_methods=["*"],
     allow_headers=["*"]

@@ -9,7 +9,7 @@ import { MigrationRequest, MigrationResponse } from '../models/migration.model';
 export class MigrationService {
 
   // FastAPI URL — where your backend is running
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'https://ai-code-migrator-production.up.railway.app';
 
   constructor(private http: HttpClient) {}
 
