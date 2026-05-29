@@ -17,7 +17,10 @@ app = FastAPI(
 # Without this Angular requests get blocked by browser
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],  # Angular default port
+    allow_origins=[
+        "http://localhost:4200",           # local Angular dev
+        "https://your-angular-app.vercel.app"  # production (update later)
+    ],
     allow_methods=["*"],
     allow_headers=["*"]
 )
