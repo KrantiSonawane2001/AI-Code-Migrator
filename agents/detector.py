@@ -1,6 +1,6 @@
 import json
 import os
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from .llm_client import get_llm, call_with_retry
 
 # 3000 — nano needs space to think even for simple tasks
@@ -30,8 +30,6 @@ Code to analyse:
 def detect_language(code: str) -> dict:
     chain = prompt | llm
     result = call_with_retry(chain, {"code": code})
-
-    print(f"[DEBUG detector] length: {len(result.content)}")
 
     if not result.content.strip():
         return {

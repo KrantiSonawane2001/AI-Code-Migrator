@@ -1,5 +1,5 @@
 import json
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from .llm_client import get_llm, call_with_retry
 
 llm = get_llm(max_tokens=3000)
@@ -25,8 +25,6 @@ Code to analyse:
 def analyse_code(code: str) -> dict:
     chain = prompt | llm
     result = call_with_retry(chain, {"code": code})
-
-    print(f"[DEBUG analyser] length: {len(result.content)}")
 
     if not result.content.strip():
         return {

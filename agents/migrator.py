@@ -1,5 +1,5 @@
 import json
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from .llm_client import get_llm, call_with_retry
 
 llm = get_llm(max_tokens=8000)
@@ -42,5 +42,4 @@ def migrate_code(code: str, analysis: dict) -> str:
         "target_version": target
     })
 
-    print(f"[DEBUG migrator] length: {len(result.content)}")
     return result.content

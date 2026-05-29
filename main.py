@@ -4,11 +4,13 @@ from pydantic import BaseModel
 from graph import run_migration_pipeline
 from validators import validate_code_input
 
+
 # Create FastAPI app
 app = FastAPI(
     title="Code Migrator AI",
     description="Migrate legacy code to modern versions using AI agents",
-    version="1.0.0"
+    version="1.0.0",
+     allow_origins=["*"],
 )
 
 # CORS — allows Angular (running on different port) to talk to FastAPI

@@ -1,0 +1,110 @@
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🔄 AI Code Migrator</h1>
+    <p>Migrate legacy code to modern versions using AI agents</p>
+  </div>
+
+  <!-- Input Section -->
+  <div class="input-section">
+    <label>Paste your legacy code below</label>
+    <textarea
+      [(ngModel)]="inputCode"
+      placeholder="Paste your Java, C++, Python, JavaScript code here..."
+      rows="12">
+    </textarea>
+
+    <button
+      (click)="migrate()"
+      [disabled]="isLoading"
+      class="migrate-btn">
+      {{ isLoading ? 'Migrating...' : 'Migrate Code →' }}
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  <div class="error" *ngIf="errorMessage">
+    ⚠️ {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>AI agents are working... this takes 30-60 seconds</p>
+    <div class="agent-steps">
+      <span>🔍 Detecting language</span>
+      <span>📊 Analysing patterns</span>
+      <span>⚡ Migrating code</span>
+      <span>✅ Reviewing quality</span>
+    </div>
+  </div>
+  <!-- Results -->
+  <div class="results" *ngIf="result && !isLoading">
+
+    <!-- Language + Score -->
+    <div class="result-header">
+      <div class="language-info">
+        <span class="badge">{{ result.source_version }}</span>
+        <span class="arrow">→</span>
+        <span class="badge modern">{{ result.target_version }}</span>
+      </div>
+      <div class="score" [style.color]="getScoreColor()">
+        {{ result.score }}/100
+        {{ result.success ? '✅ PASSED' : '⚠️ NEEDS REVIEW' }}
+      </div>
+    </div>
+
+    <!-- Code Comparison -->
+    <div class="code-comparison">
+      <div class="code-panel">
+        <div class="panel-header">ORIGINAL CODE</div>
+        <pre><code>{{ result.original_code }}</code></pre>
+      </div>
+      <div class="code-panel modern">
+        <div class="panel-header">MIGRATED CODE</div>
+        <pre><code>{{ result.migrated_code }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Agent Progress -->
+    <div class="agent-progress">
+      <span>✅ Detector</span>
+      <span>✅ Analyser</span>
+      <span>✅ Migrator</span>
+      <span>✅ Reviewer</span>
+    </div>
+
+    <!-- Review Summary -->
+    <div class="review">
+      <h3>Review Summary</h3>
+      <p>{{ result.review.overall_feedback }}</p>
+
+      <div class="patterns" *ngIf="result.review.patterns_fixed.length > 0">
+        <h4>✅ Fixed</h4>
+        <ul>
+          <li *ngFor="let p of result.review.patterns_fixed">{{ p }}</li>
+        </ul>
+      </div>
+
+      <div class="patterns" *ngIf="result.review.patterns_missed.length > 0">
+        <h4>⚠️ Missed</h4>
+        <ul>
+          <li *ngFor="let p of result.review.patterns_missed">{{ p }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button (click)="copyCode()" class="copy-btn">
+        📋 Copy Code
+      </button>
+      <button (click)="downloadCode()" class="download-btn">
+        ⬇️ Download
+      </button>
+    </div>
+
+  </div>
+
+</div>
